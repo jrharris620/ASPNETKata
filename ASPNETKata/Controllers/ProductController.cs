@@ -80,7 +80,7 @@ namespace ASPNETKata.Controllers
                 conn.Open();
                 try
                 {
-                    conn.Execute("UPDATE product SET Name = @Name WHERE ProductId = @Id", new { Name = name, Id = id});
+                    conn.Execute("UPDATE product SET Name = @Name WHERE ProductId = @Id", new {Name = name, Id = id});
                     return RedirectToAction("Index");
                 }
                 catch
@@ -88,6 +88,7 @@ namespace ASPNETKata.Controllers
                     return View();
                 }
             }
+        }
 
         // GET: Product/Delete/5
         public ActionResult Delete(int id)
