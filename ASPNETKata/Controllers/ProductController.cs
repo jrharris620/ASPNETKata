@@ -21,8 +21,9 @@ namespace ASPNETKata.Controllers
             using (var conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                var list = conn.Query<Product>("SELECT * from Product");
+                var list = conn.Query<Product>("SELECT * from Product ORDER BY ProductId DESC");
                 return View(list);
+            }
         }
 
         // GET: Product/Details/5
@@ -41,15 +42,22 @@ namespace ASPNETKata.Controllers
         [HttpPost]
         public ActionResult Create(FormCollection collection)
         {
-            try
-            {
-                // TODO: Add insert logic here
+            var name = collection["Name"];
 
-                return RedirectToAction("Index");
-            }
-            catch
+            var connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
+
+            using (var conn = new MySqlConnection(connectionString))
             {
-                return View();
+                conn.Open();
+                try
+                {
+                    conn.Execute("INSERT INTO product (Name) VALUES (@Name)", new {Name = name});
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
         }
 
@@ -63,17 +71,23 @@ namespace ASPNETKata.Controllers
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add update logic here
+            var name = collection["Name"];
 
-                return RedirectToAction("Index");
-            }
-            catch
+            var connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
+
+            using (var conn = new MySqlConnection(connectionString))
             {
-                return View();
+                conn.Open();
+                try
+                {
+                    conn.Execute("UPDATE product SET Name = @Name WHERE ProductId = @Id", new { Name = name, Id = id});
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
             }
-        }
 
         // GET: Product/Delete/5
         public ActionResult Delete(int id)
