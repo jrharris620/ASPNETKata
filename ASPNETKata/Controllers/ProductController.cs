@@ -49,15 +49,8 @@ namespace ASPNETKata.Controllers
             using (var conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                try
-                {
-                    conn.Execute("INSERT INTO product (Name) VALUES (@Name)", new {Name = name});
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    return View();
-                }
+                conn.Execute("INSERT INTO product (Name) VALUES (@Name)", new { Name = name });
+                return RedirectToAction("Index");
             }
         }
 
@@ -78,15 +71,8 @@ namespace ASPNETKata.Controllers
             using (var conn = new MySqlConnection(connectionString))
             {
                 conn.Open();
-                try
-                {
-                    conn.Execute("UPDATE product SET Name = @Name WHERE ProductId = @Id", new {Name = name, Id = id});
-                    return RedirectToAction("Index");
-                }
-                catch
-                {
-                    return View();
-                }
+                conn.Execute("UPDATE product SET Name = @Name WHERE ProductId = @Id", new { Name = name, Id = id });
+                return RedirectToAction("Index");
             }
         }
 
@@ -100,15 +86,15 @@ namespace ASPNETKata.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            var name = collection["Name"];
 
-                return RedirectToAction("Index");
-            }
-            catch
+            var connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
+
+            using (var conn = new MySqlConnection(connectionString))
             {
-                return View();
+                conn.Open();
+                conn.Execute("DELETE FROM product WHERE productId = @Id", new { Id = id});
+                return RedirectToAction("Index");
             }
         }
     }
