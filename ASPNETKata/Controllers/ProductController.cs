@@ -29,7 +29,14 @@ namespace ASPNETKata.Controllers
         // GET: Product/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var connectionString = ConfigurationManager.ConnectionStrings["Default"].ConnectionString;
+
+            using (var conn = new MySqlConnection(connectionString))
+            {
+                conn.Open();
+                var list = conn.Query<Product>("SELECT * from Product Where ProductId = @Id", new { Id = id });
+                return View(list.FirstOrDefault());
+            }
         }
 
         // GET: Product/Create
