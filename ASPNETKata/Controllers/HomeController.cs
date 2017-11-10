@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ASPNETKata.Models;
+using Dapper;
+using MySql.Data.MySqlClient;
 
 namespace ASPNETKata.Controllers
 {
