@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using ASPNETKata.Models;
 using Dapper;
+using InversionOfControl.Shared;
 using MySql.Data.MySqlClient;
 
 namespace ASPNETKata.Controllers
