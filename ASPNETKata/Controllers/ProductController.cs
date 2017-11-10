@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using ASPNETKata.Models;
 using Dapper;
-using InversionOfControl.Shared;
+using ASPNETKata.Shared;
 using MySql.Data.MySqlClient;
 
 namespace ASPNETKata.Controllers
@@ -111,6 +111,13 @@ namespace ASPNETKata.Controllers
                 conn.Execute("DELETE FROM product WHERE productId = @Id", new { Id = id});
                 return RedirectToAction("Index");
             }
+        }
+
+        private readonly IProductRepository repo;
+
+        public ProductController(IProductRepository repo)
+        {
+            this.repo = repo;
         }
     }
 }

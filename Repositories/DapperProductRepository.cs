@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
-namespace InversionOfControl.Shared
+namespace ASPNETKata.Shared
 {
     public class DapperProductRepository : IProductRepository
     {

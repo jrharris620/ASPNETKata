@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InversionOfControl.Shared
+namespace ASPNETKata.Shared
 {
     public class Product
     {
