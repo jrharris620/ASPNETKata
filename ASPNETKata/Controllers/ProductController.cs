@@ -1,5 +1,4 @@
 ﻿using ASPNETKata.Models;
-using Dapper;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -53,7 +52,8 @@ namespace ASPNETKata.Controllers
         // GET: Product/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var product = repo.GetDetails(id);
+            return View(product);
         }
 
         // POST: Product/Edit/5
@@ -68,7 +68,8 @@ namespace ASPNETKata.Controllers
         // GET: Product/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var product = repo.GetDetails(id);
+            return View(product);
         }
 
         // POST: Product/Delete/5
